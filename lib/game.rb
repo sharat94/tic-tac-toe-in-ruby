@@ -11,8 +11,7 @@ class Game
     while game_still_on? do
       @board.print
       puts "Enter coordinates for #{@current_gamer.name} playing as #{@current_gamer.symbol}"
-      input = gets.strip.split(',').map(&:to_i)
-      puts "Input: #{input}"
+      input = sanitize_input(gets.strip)
       switch_gamer if validate_and_mark_input(input)
     end
     winner = switch_gamer
@@ -21,6 +20,9 @@ class Game
 
   private
 
+  def sanitize_input(input)
+    input.split(',').map!{|i| Integer(i)}
+  end
   def switch_gamer
     @current_gamer = @current_gamer == @first_gamer ? @second_gamer : @first_gamer
   end

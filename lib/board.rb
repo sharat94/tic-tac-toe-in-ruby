@@ -14,7 +14,7 @@ class Board
   end
 
   def mark_input(input, player)
-    if @grid[input[0]][input[1]].nil? || %w[X O].include?(@grid[input[0]][input[1]])
+    if @grid.dig(input[0],input[1]).nil? || %w[X O].include?(@grid[input[0]][input[1]])
       puts "Input Invalid by player #{player.name}!"
       return false
     end

@@ -1,3 +1,3 @@
-class Error::InvalidSymbol < StandardError
+class InvalidSymbol < StandardError
 
 end
