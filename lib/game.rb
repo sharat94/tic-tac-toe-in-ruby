@@ -33,7 +33,7 @@ class Game
     if gamer.empty?
       return @second_gamer = GameBot.new(name: 'SharatBot', symbol: 'O', difficulty: 1)
     end
-    @second_gamer = Gamer.new(name: second_gamer, symbol: 'O')
+    @second_gamer = Gamer.new(name: gamer, symbol: 'O')
   end
 
   def sanitize_input(input)

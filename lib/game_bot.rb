@@ -1,5 +1,5 @@
-class GameBot <  Gamer
-  def initialize(name: , symbol: , difficulty: )
+class GameBot < Gamer
+  def initialize(name:, symbol:, difficulty:)
     super(name: name, symbol: symbol)
     #can use logic to swiitch algorithim used based on difficulty setting
   end
@@ -17,22 +17,22 @@ class GameBot <  Gamer
   private
 
   def block_row_win(grid)
-    x_count = 0
     grid.each_with_index do |row, i|
+      x_count = 0
       row.each_with_index do |cell, j|
         x_count += 1 if cell == 'X'
-        return [i,(j + 1)] if x_count > 1
+        return [i, (j + 1)] if x_count > 1 && !grid.dig(i, j + 1).nil? && grid[i][j + 1].strip.empty?
       end
     end
     nil
   end
 
   def block_column_win(grid)
-    x_count = 0
     grid.length.times do |i|
+      x_count = 0
       grid.length.times do |j|
         x_count += 1 if grid[j][i] == 'X'
-        return [(j+1),i] if x_count > 1
+        return [(j + 1), i] if x_count > 1 && !grid.dig(j + 1, i).nil? && grid[j + 1][i].strip.empty?
       end
     end
     nil
@@ -43,9 +43,11 @@ class GameBot <  Gamer
     cross_diagonal_x_count = 0
     grid.length.times.each do |i|
       diagonal_x_count += 1 if grid[i][i] == 'X'
-      return [i+1,i+1] if diagonal_x_count > 1
-      cross_diagonal_x_count += 0 if grid[i][grid.length-i-1] == 'X'
-      return [i+1,grid.length-i-1-1] if diagonal_x_count > 1
+      return [i + 1, i + 1] if diagonal_x_count > 1 && !grid.dig(i + 1, i + 1).nil? && grid[i + 1][i + 1].strip.empty?
+      cross_diagonal_x_count += 1 if grid[i][grid.length - i - 1] == 'X'
+      return [i+1, grid.length - i - 1 - 1] if cross_diagonal_x_count > 1 &&
+          !grid.dig(i+1, grid.length - i - 1 - 1).nil? &&
+          grid[i + 1][grid.length - i - 1 - 1].strip.empty?
     end
     nil
   end
