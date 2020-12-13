@@ -9,7 +9,10 @@ class Board
   def print
     @grid.each_with_index do |row, index|
       puts row.join(',').gsub(',','|')
-      puts '- - -' unless index == (@grid_length - 1)
+      dash = '- '
+      dashes = ''
+      @grid_length.times.map{ |m| dashes += dash } unless index == (@grid_length - 1)
+      puts dashes
     end
   end
 
