@@ -1,7 +1,7 @@
 class Board
-
+  attr_reader :grid
   def initialize(grid_length: 3)
-    @grid_length = grid_length.to_i
+    @grid_length = Integer(grid_length)
     @grid = []
     initialize_grid
   end
@@ -53,7 +53,7 @@ class Board
     cross_diagonal_matcher = []
     @grid_length.times.each do |i|
       diagonal_matcher.push(@grid[i][i])
-      cross_diagonal_matcher.push(@grid[i][@grid_length-i])
+      cross_diagonal_matcher.push(@grid[i][@grid_length-i-1])
     end
     return true if (diagonal_matcher.all?{|r| r == 'X'} || diagonal_matcher.all?{|r| r == 'O'})
     return true if (cross_diagonal_matcher.all?{|r| r == 'X'} || cross_diagonal_matcher.all?{|r| r == 'O'})
@@ -64,5 +64,6 @@ class Board
     @grid_length.times.each_with_index do |a,i|
       @grid.push(Array.new(@grid_length, ' '))
     end
+    @grid
   end
 end

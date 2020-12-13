@@ -1,7 +1,10 @@
+require_relative 'board'
+require_relative 'gamer'
 class Game
   #This class acts as the entry point for the end user
+  attr_reader :second_gamer, :first_gamer, :current_gamer
   def initialize(grid_length: , first_gamer:, second_gamer:)
-    @board = Board.new(grid_length: grid_length.to_i)
+    @board = Board.new(grid_length: Integer(grid_length))
     @first_gamer = Gamer.new(name: first_gamer, symbol: 'X')
     @second_gamer = Gamer.new(name: second_gamer, symbol: 'O')
     @current_gamer = @first_gamer
@@ -12,7 +15,7 @@ class Game
       @board.print
       puts "Enter coordinates for #{@current_gamer.name} playing as #{@current_gamer.symbol}"
       input = sanitize_input(gets.strip)
-      switch_gamer if validate_and_mark_input(input)
+      switch_gamer if validate_and_mark_input?(input)
     end
     winner = switch_gamer
     puts "Winner is #{winner.name} !!!"
@@ -26,7 +29,7 @@ class Game
   def switch_gamer
     @current_gamer = @current_gamer == @first_gamer ? @second_gamer : @first_gamer
   end
-  def validate_and_mark_input(input)
+  def validate_and_mark_input?(input)
     @board.mark_input(input, @current_gamer)
   end
   def game_still_on?

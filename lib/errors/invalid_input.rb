@@ -1,3 +1,3 @@
-class Error::InvalidInput < StandardError
+class InvalidInput < StandardError
 
 end
