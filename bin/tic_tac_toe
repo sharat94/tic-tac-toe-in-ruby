@@ -2,19 +2,20 @@
 require './lib/board'
 require './lib/game'
 require './lib/gamer'
-
+require './lib/errors/invalid_input'
 while true
   begin
     puts 'Enter grid size'
     grid_length = Integer(gets.strip)
     puts 'Enter player 1 name'
     first_gamer = gets.strip
-    puts 'Enter player 2 name'
+    raise InvalidInput if first_gamer.empty?
+    puts 'Enter player 2 name. (PS: Enter nothing if you want a bot to play with you!)'
     second_gamer = gets.strip
     Game.new(grid_length: grid_length,
              first_gamer: first_gamer,
              second_gamer: second_gamer).start
-  rescue ArgumentError
+  rescue ArgumentError, InvalidInput
     puts 'INVALID INPUT'
   end
 end

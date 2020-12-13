@@ -6,6 +6,9 @@ class Gamer
     assign_symbol(symbol)
   end
 
+  def bot?
+    false
+  end
   private
   def assign_symbol(symbol)
     raise InvalidSymbol.new('invalid symbol') unless %w[X O].include?(symbol)
