@@ -29,9 +29,14 @@ class Board
     puts "diagonal_win?: #{diagonal_win?}"
     puts "row_win?: #{row_win?}"
     puts "column_win?: #{column_win?}"
-    diagonal_win? || row_win? || column_win?
+    diagonal_win? || row_win? || column_win? || is_tie?
   end
-  private
+
+  def is_tie?
+    @grid.all? do |row|
+      row.all? { |cell| %w[X O].include? cell }
+    end
+  end
 
   def column_win?
     @grid_length.times.each do |i|
@@ -63,6 +68,7 @@ class Board
     false
   end
 
+  private
   def initialize_grid
     @grid_length.times.each_with_index do |a,i|
       @grid.push(Array.new(@grid_length, ' '))

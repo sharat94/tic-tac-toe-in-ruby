@@ -23,11 +23,27 @@ class Game
       puts "the input is #{input}"
       switch_gamer if validate_and_mark_input?(input)
     end
-    winner = switch_gamer
-    puts "Winner is #{winner.name} !!!"
+    announce_results
   end
 
   private
+
+  def announce_results
+    if @board.diagonal_win? || @board.row_win? || @board.column_win?
+      announce_winner
+    else
+      announce_tie
+    end
+  end
+
+  def announce_tie
+    puts 'Game is a TIE!'
+  end
+
+  def announce_winner
+    winner = switch_gamer
+    puts "Winner is #{winner.name} !!!"
+  end
 
   def assign_second_gamer(gamer)
     if gamer.empty?
